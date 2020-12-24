@@ -1,0 +1,118 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+sensor:
+  - platform: mqtt
+    name: "EV battery range"
+    state_topic: "ev/battery/range"
+    unit_of_measurement: 'km'
+  - platform: mqtt
+    name: "EV battery DC remaining time"
+    state_topic: "ev/battery/charge/dc"
+  - platform: mqtt
+    name: "EV battery 220 remaining time"
+    state_topic: "ev/battery/charge/220"
+  - platform: mqtt
+    name: "EV battery 120 remaining time"
+    state_topic: "ev/battery/charge/120"
+  - platform: mqtt
+    name: "EV battery charge level"
+    state_topic: "ev/battery/charge/level"
+    unit_of_measurement: '%'
+  - platform: mqtt
+    name: "EV battery 12v charge level"
+    state_topic: "ev/battery12v/charge/level"
+    unit_of_measurement: '%'
+  - platform: mqtt
+    name: "EV climate temperature"
+    state_topic: "ev/climate/temp"
+    unit_of_measurement: 'C'
+  - platform: mqtt
+    name: "EV last update"
+    state_topic: "ev/updatetime"
+    
+binary_sensor:
+  - platform: mqtt
+    name: "EV charging"
+    state_topic: "ev/battery/charging"
+    payload_on: "true"
+    payload_off: "false"
+    device_class: 'battery_charging'
+  - platform: mqtt
+    name: "EV climate active"
+    state_topic: "ev/climate/active"
+    payload_on: "true"
+    payload_off: "false"
+  - platform: mqtt
+    name: "EV climate front defrost active"
+    state_topic: "ev/climate/defrost/front"
+    payload_on: "true"
+    payload_off: "false"
+  - platform: mqtt
+    name: "EV climate back defrost active"
+    state_topic: "ev/climate/defrost/back"
+    payload_on: "true"
+    payload_off: "false"
+  - platform: mqtt
+    name: "EV door locked"
+    state_topic: "ev/car/lock"
+    payload_on: "false"
+    payload_off: "true"
+    device_class: 'lock'
+  - platform: mqtt
+    name: "EV hood opened"
+    state_topic: "ev/car/hood_open"
+    payload_on: "true"
+    payload_off: "false"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV trunk opened"
+    state_topic: "ev/car/trunk_open"
+    payload_on: "true"
+    payload_off: "false"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV door open - front left"
+    state_topic: "ev/car/door_open/fl"
+    payload_on: "1"
+    payload_off: "0"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV door open - front right"
+    state_topic: "ev/car/door_open/fr"
+    payload_on: "1"
+    payload_off: "0"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV door open - back left"
+    state_topic: "ev/car/door_open/bl"
+    payload_on: "1"
+    payload_off: "0"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV door open - back right"
+    state_topic: "ev/car/door_open/br"
+    payload_on: "1"
+    payload_off: "0"
+    device_class: 'door'
+  - platform: mqtt
+    name: "EV tire pressure alert"
+    state_topic: "ev/car/tire_pressure"
+    payload_on: "1"
+    payload_off: "0"
+  - platform: mqtt
+    name: "EV engine activated"
+    state_topic: "ev/engine/activated"
+    payload_on: "true"
+    payload_off: "false"
+    device_class: 'power'

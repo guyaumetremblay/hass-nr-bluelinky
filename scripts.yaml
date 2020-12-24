@@ -1,0 +1,4 @@
+ev_refresh_status:
+  alias: EV Refresh status
+  sequence:
+    - event: ev_refresh_status
