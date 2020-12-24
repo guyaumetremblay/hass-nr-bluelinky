@@ -1,0 +1,99 @@
+title: NameYourHomeAssistant
+views:
+  - title: EV
+    path: ev
+    panel: false
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: gauge
+            entity: sensor.ev_battery_charge_level
+            min: 0
+            max: 100
+            severity:
+              green: 41
+              yellow: 15
+              red: 0
+            name: Niveau de la batterie
+          - type: entities
+            entities:
+              - entity: sensor.ev_battery_range
+                icon: 'mdi:map-marker-distance'
+                name: GOM
+      - type: entities
+        entities:
+          - entity: sensor.ev_last_update
+            name: Dernière mise-à-jour
+            icon: 'mdi:clock'
+        footer:
+          type: buttons
+          entities:
+            - entity: script.ev_refresh_status
+              name: Rafraichir
+              icon: 'mdi:refresh'
+              tap_action:
+                action: call-service
+                service: script.ev_refresh_status
+        state_color: false
+      - type: entities
+        entities:
+          - entity: binary_sensor.ev_charging
+            icon: 'mdi:ev-station'
+            name: Recharge
+          - entity: sensor.ev_battery_dc_remaining_time
+            icon: 'mdi:ev-plug-ccs1'
+            name: Temps recharge DC
+          - entity: sensor.ev_battery_220_remaining_time
+            icon: 'mdi:ev-plug-type1'
+            name: Temps recharge 220v
+          - entity: sensor.ev_battery_120_remaining_time
+            icon: 'mdi:power-plug'
+            name: Temps recharge 120v
+          - entity: sensor.ev_battery_12v_charge_level
+            icon: 'mdi:car-battery'
+            name: Niveau batterie 12v
+        title: Batterie
+      - type: entities
+        entities:
+          - entity: binary_sensor.ev_climate_active
+            icon: 'mdi:air-conditioner'
+            name: Climatisation active
+          - entity: binary_sensor.ev_climate_front_defrost_active
+            icon: 'mdi:car-defrost-front'
+            name: Dégivreur avant
+          - entity: binary_sensor.ev_climate_back_defrost_active
+            icon: 'mdi:car-defrost-rear'
+            name: Dégivreur arrière
+          - entity: sensor.ev_climate_temperature
+            icon: 'mdi:thermometer'
+            name: Température de climatisation
+        title: Climatisation
+      - type: glance
+        entities:
+          - entity: binary_sensor.ev_door_open_front_left
+            name: Avant gauche
+          - entity: binary_sensor.ev_door_open_front_right
+            name: Avant droite
+          - entity: binary_sensor.ev_door_open_back_left
+            name: Arriève gauche
+          - entity: binary_sensor.ev_door_open_back_right
+            name: Arrière droite
+        title: Portes
+        show_icon: true
+        state_color: true
+      - type: entities
+        entities:
+          - entity: binary_sensor.ev_engine_activated
+            name: Moteur
+          - entity: binary_sensor.ev_door_locked
+            name: Portes
+          - entity: binary_sensor.ev_hood_opened
+            name: Capot
+          - entity: binary_sensor.ev_trunk_opened
+            name: Coffre
+          - entity: binary_sensor.ev_tire_pressure_alert
+            name: Alert pression des pneus
+            icon: 'mdi:car-tire-alert'
+        title: Alertes
+        state_color: true
